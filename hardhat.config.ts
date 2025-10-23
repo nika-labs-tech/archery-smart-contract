@@ -1,7 +1,9 @@
 import type { HardhatUserConfig } from "hardhat/config";
 
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
-import { configVariable } from "hardhat/config";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const config: HardhatUserConfig = {
   plugins: [hardhatToolboxViemPlugin],
@@ -31,12 +33,12 @@ const config: HardhatUserConfig = {
       type: "edr-simulated",
       chainType: "op",
     },
-    sei: {
+    seitestnet: {
       type: "http",
       chainType: "l1",
-      url: "https://evm-rpc.sei-apis.com",
-      accounts: [configVariable("SEI_PRIVATE_KEY")],
-      chainId: 1329,
+      url: "https://evm-rpc-testnet.sei-apis.com",
+      accounts: [process.env.SEI_PRIVATE_KEY || ""],
+      chainId: 1328,
     },
   },
 };
