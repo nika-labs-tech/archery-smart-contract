@@ -6,33 +6,20 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
+  plugins: [
+    hardhatToolboxViemPlugin
+  ],
   solidity: {
-    profiles: {
-      default: {
-        version: "0.8.28",
+    version: "0.8.30",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1000,
       },
-      production: {
-        version: "0.8.28",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 1000,
-          },
-          viaIR: true,
-        },
-      },
+      viaIR: true,
     },
   },
   networks: {
-    hardhatMainnet: {
-      type: "edr-simulated",
-      chainType: "l1",
-    },
-    hardhatOp: {
-      type: "edr-simulated",
-      chainType: "op",
-    },
     seitestnet: {
       type: "http",
       chainType: "l1",
@@ -40,6 +27,45 @@ const config: HardhatUserConfig = {
       accounts: [process.env.SEI_PRIVATE_KEY || ""],
       chainId: 1328,
     },
+    seimainnet: {
+      type: "http",
+      chainType: "l1",
+      url: "https://evm-rpc.sei-apis.com",
+      accounts: [process.env.SEI_PRIVATE_KEY || ""],
+      chainId: 1329,
+    }
+  },
+  verify: {
+    blockscout: {
+      enabled: true,
+    },
+  },
+  chainDescriptors: {
+    1328: {
+      name: "sei_atlantic_2",
+      blockExplorers: {
+        blockscout: {
+          name: "Seitrace",
+          url: "https://seitrace.com",
+          apiUrl: "https://seitrace.com/atlantic-2/api",
+        },
+      },
+    },
+    1329: {
+      name: "sei_pacific_1",
+      blockExplorers: {
+        blockscout: {
+          name: "Seitrace",
+          url: "https://seitrace.com",
+          apiUrl: "https://seitrace.com/pacific-1/api",
+        },
+      },
+    },
+  },
+  paths: {
+    sources: "./contracts",
+    artifacts: "./artifacts",
+    cache: "./cache",
   },
 };
 

@@ -44,7 +44,7 @@ npx hardhat ignition deploy ignition/modules/Faster.ts --network sei-testnet
 
 ### Method 1: Using Custom Script
 ```bash
-npx hardhat run scripts/deploy-sei.ts --network sei
+npx hardhat run scripts/deploy-faster.ts --network sei
 ```
 
 ### Method 2: Using Ignition

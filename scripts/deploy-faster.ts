@@ -1,4 +1,3 @@
-import viem from "hardhat";
 import { network } from "hardhat";
 import * as dotenv from "dotenv";
 
